@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.ObjectBuilder.StructureMap</name>
+    </assembly>
+    <members>
+        <member name="T:NServiceBus.ConfigureStructureMapBuilder">
+            <summary>
+            Contains extension methods to <see cref="T:NServiceBus.Configure"/>.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ConfigureStructureMapBuilder.StructureMapBuilder(NServiceBus.Configure)">
+            <summary>
+            Use StructureMap as your container.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ConfigureStructureMapBuilder.StructureMapBuilder(NServiceBus.Configure,StructureMap.IContainer)">
+            <summary>
+            Use StructureMap as your container passing in a pre-configured container to be used by nServiceBus.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.ObjectBuilder.StructureMap.StructureMapExtensions">
+            <summary>
+            Extensions to the StructureMap api
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ObjectBuilder.StructureMap.StructureMapExtensions.RegisterAdditionalInterfaceForPluginType(StructureMap.ConfigurationExpression,System.Type,System.Type,StructureMap.Pipeline.ILifecycle)">
+            <summary>
+            Registers the given interface and redirects to the given pluginType when the interface is requested
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ObjectBuilder.StructureMap.StructureMapExtensions.EnableSetterInjectionFor(StructureMap.ConfigurationExpression,System.Type)">
+            <summary>
+            Tells StructureMap to do setter injection for the given type
+            </summary>
+        </member>
+        <member name="T:NServiceBus.ObjectBuilder.StructureMap.StructureMapObjectBuilder">
+            <summary>
+            ObjectBuilder implementation for the StructureMap IoC-Container
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ObjectBuilder.StructureMap.StructureMapObjectBuilder.BuildChildContainer">
+            <summary>
+            Returns a child instance of the container to facilitate deterministic disposal
+            of all resources built by the child container.
+            </summary>
+        </member>
+    </members>
+</doc>
