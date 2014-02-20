@@ -61,7 +61,7 @@ namespace Subscriber
 			configPackage.DatabaseConnectionString = @"server=localhost\SQLEXPRESS;database=NServiceBusRepro;Trusted_Connection=True;";
 			configPackage.DatabaseSchemaName = "dbo";
 			configPackage.NumberOfFirstLevelRetries = 2;
-			configPackage.NumberOfSecondLevelRetries = 2;
+			configPackage.NumberOfSecondLevelRetries = 0;
 			configPackage.SecondLevelRetryInterval = new TimeSpan(0, 0, 10);
 			configPackage.MessageMappings = new[]
 												{
@@ -69,7 +69,7 @@ namespace Subscriber
 													new QueueMapping(typeof (ISecondEvent).AssemblyQualifiedName, "NServiceBusRepro.PublisherInputQueue"),
 													new QueueMapping(typeof (IThirdEvent).AssemblyQualifiedName, "NServiceBusRepro.PublisherInputQueue")
 												};
-			configPackage.NumberOfWorkerThreads = 8;  // Change this to increase worker threads
+			configPackage.NumberOfWorkerThreads = 1;  // Change this to increase worker threads
 			
 			return configPackage;
 		}

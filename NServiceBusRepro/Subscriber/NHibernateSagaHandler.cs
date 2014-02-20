@@ -38,15 +38,10 @@ namespace Subscriber
 
             Data.OrderId = message.OrderId;
             Data.ConditionOne = true;
-            if (Data.RelatedData == null)
-            {
-                Data.RelatedData = new List<NHibernateRelatedSagaData>();
-            }
-            Data.RelatedData.Add(new NHibernateRelatedSagaData
-                            {
-                                NHibernateSagaData = Data,
-                                ThreadId = threadId
-                            });
+
+            CreateChildSagaDataIfNeeded();
+            UpdateEveryChildSagaDataRecord();
+
             PerformSagaCompletionCheck();
             Console.WriteLine(string.Format("[{0}] Finished Processing IFirstEvent for Order ID {1}", threadId, message.OrderId));
         }
@@ -68,17 +63,20 @@ namespace Subscriber
 
             Data.OrderId = message.OrderId;
             Data.ConditionTwo = true;
-            if (Data.RelatedData == null)
-            {
-                Data.RelatedData = new List<NHibernateRelatedSagaData>();
-            }
-            Data.RelatedData.Add(new NHibernateRelatedSagaData
-                                     {
-                                         NHibernateSagaData = Data,
-                                         ThreadId = threadId
-                                     });
+
+            CreateChildSagaDataIfNeeded();
+            UpdateEveryChildSagaDataRecord();
+
             PerformSagaCompletionCheck();
             Console.WriteLine(string.Format("[{0}] Finished Processing ISecondEvent for Order ID {1}", threadId, message.OrderId));
+        }
+
+        private void UpdateEveryChildSagaDataRecord()
+        {
+            foreach (var data in Data.RelatedData)
+            {
+                data.ThreadId++;
+            }
         }
 
         public void Handle(IThirdEvent message)
@@ -98,17 +96,37 @@ namespace Subscriber
 
             Data.OrderId = message.OrderId;
             Data.ConditionThree = true;
-            if (Data.RelatedData == null)
-            {
-                Data.RelatedData = new List<NHibernateRelatedSagaData>();
-            }
-            Data.RelatedData.Add(new NHibernateRelatedSagaData
-            {
-                NHibernateSagaData = Data,
-                ThreadId = threadId
-            });
+
+            CreateChildSagaDataIfNeeded();
+            UpdateEveryChildSagaDataRecord();
+
             PerformSagaCompletionCheck();
             Console.WriteLine(string.Format("[{0}] Finished Processing IThirdEvent for Order ID {1}", threadId, message.OrderId));
+        }
+
+        private void CreateChildSagaDataIfNeeded()
+        {
+            if (Data.RelatedData == null)
+            {
+                Data.RelatedData = new List<NHibernateRelatedSagaData>
+                                       {
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 1
+                                               },
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 2
+                                               },
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 3
+                                               }
+                                       };
+            }
         }
 
         private static void SlowThingsDown(int slowDownFactor)
