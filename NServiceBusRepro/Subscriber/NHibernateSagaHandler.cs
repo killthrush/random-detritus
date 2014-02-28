@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Messages;
+using NServiceBus;
 using NServiceBus.Saga;
 
 namespace Subscriber
@@ -10,7 +11,8 @@ namespace Subscriber
         Saga<NHibernateSagaData>,
         IAmStartedByMessages<IFirstEvent>,
         IAmStartedByMessages<ISecondEvent>,
-        IAmStartedByMessages<IThirdEvent>
+        IAmStartedByMessages<IThirdEvent>,
+        IHandleMessages<CloseSagaCommand>
     {
         private const int SlowDownFactor = 20000;
 
@@ -19,6 +21,7 @@ namespace Subscriber
             ConfigureMapping<IFirstEvent>(s => s.OrderId).ToSaga(m => m.OrderId);
             ConfigureMapping<ISecondEvent>(s => s.OrderId).ToSaga(m => m.OrderId);
             ConfigureMapping<IThirdEvent>(s => s.OrderId).ToSaga(m => m.OrderId);
+            ConfigureMapping<CloseSagaCommand>(s => s.OrderId).ToSaga(m => m.OrderId);
         }
 
         public void Handle(IFirstEvent message)
@@ -42,7 +45,7 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            PerformSagaCompletionCheck();
+            Bus.SendLocal(new CloseSagaCommand {OrderId = message.OrderId});
             Console.WriteLine(string.Format("[{0}] Finished Processing IFirstEvent for Order ID {1}", threadId, message.OrderId));
         }
 
@@ -67,7 +70,7 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            PerformSagaCompletionCheck();
+            Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
             Console.WriteLine(string.Format("[{0}] Finished Processing ISecondEvent for Order ID {1}", threadId, message.OrderId));
         }
 
@@ -100,8 +103,24 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            PerformSagaCompletionCheck();
+            Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
             Console.WriteLine(string.Format("[{0}] Finished Processing IThirdEvent for Order ID {1}", threadId, message.OrderId));
+        }
+
+        /// <summary>
+        /// Handles a message.
+        /// </summary>
+        /// <param name="message">The message to handle.</param>
+        /// <remarks>
+        /// This method will be called when a message arrives on the bus and should contain
+        ///             the custom logic to execute when the message is received.
+        /// </remarks>
+        public void Handle(CloseSagaCommand message)
+        {
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            Console.WriteLine(string.Format("[{0}] Received CloseSagaCommand for Order ID {1}", threadId, message.OrderId));
+            PerformSagaCompletionCheck();
+            Console.WriteLine(string.Format("[{0}] Finished Processing CloseSagaCommand for Order ID {1}", threadId, message.OrderId));
         }
 
         private void CreateChildSagaDataIfNeeded()

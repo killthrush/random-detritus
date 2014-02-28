@@ -7,8 +7,9 @@ namespace Subscriber
 {
     public class NHibernateSagaData : IContainSagaData
     {
-        [RowVersion]
-        public virtual byte[] Version { get; set; }
+// Commented out - this does not work with NServiceBus.NHibernate 4.3.0
+//        [RowVersion]
+//        public virtual byte[] Version { get; set; }
 
         public virtual Guid Id { get; set; }
 

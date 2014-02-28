@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CloseSagaCommand.cs" />
     <Compile Include="IThirdEvent.cs" />
     <Compile Include="IFirstEvent.cs" />
     <Compile Include="ISecondEvent.cs" />
