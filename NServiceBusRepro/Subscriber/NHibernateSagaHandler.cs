@@ -45,7 +45,8 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            Bus.SendLocal(new CloseSagaCommand {OrderId = message.OrderId});
+            PerformSagaCompletionCheck();
+            //Bus.SendLocal(new CloseSagaCommand {OrderId = message.OrderId});
             Console.WriteLine(string.Format("[{0}] Finished Processing IFirstEvent for Order ID {1}", threadId, message.OrderId));
         }
 
@@ -70,7 +71,8 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
+            PerformSagaCompletionCheck();
+            //Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
             Console.WriteLine(string.Format("[{0}] Finished Processing ISecondEvent for Order ID {1}", threadId, message.OrderId));
         }
 
@@ -103,7 +105,8 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             UpdateEveryChildSagaDataRecord();
 
-            Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
+            PerformSagaCompletionCheck();
+            //Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
             Console.WriteLine(string.Format("[{0}] Finished Processing IThirdEvent for Order ID {1}", threadId, message.OrderId));
         }
 
