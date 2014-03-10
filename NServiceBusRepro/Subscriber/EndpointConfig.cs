@@ -69,7 +69,7 @@ namespace Subscriber
 													new QueueMapping(typeof (ISecondEvent).AssemblyQualifiedName, "NServiceBusRepro.PublisherInputQueue"),
 													new QueueMapping(typeof (IThirdEvent).AssemblyQualifiedName, "NServiceBusRepro.PublisherInputQueue")
 												};
-			configPackage.NumberOfWorkerThreads = 1;  // Change this to increase worker threads
+			configPackage.NumberOfWorkerThreads = 8;  // Change this to increase worker threads
 			
 			return configPackage;
 		}

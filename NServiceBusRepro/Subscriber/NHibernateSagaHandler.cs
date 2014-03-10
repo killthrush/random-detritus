@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Messages;
 using NServiceBus;
@@ -43,6 +44,7 @@ namespace Subscriber
             Data.ConditionOne = true;
 
             CreateChildSagaDataIfNeeded();
+            Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
 
             PerformSagaCompletionCheck();
@@ -69,6 +71,7 @@ namespace Subscriber
             Data.ConditionTwo = true;
 
             CreateChildSagaDataIfNeeded();
+            Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
 
             PerformSagaCompletionCheck();
@@ -103,6 +106,7 @@ namespace Subscriber
             Data.ConditionThree = true;
 
             CreateChildSagaDataIfNeeded();
+            Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
 
             PerformSagaCompletionCheck();
@@ -146,6 +150,21 @@ namespace Subscriber
                                                {
                                                    NHibernateSagaData = Data,
                                                    ThreadId = 3
+                                               },
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 4
+                                               },
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 5
+                                               },
+                                           new NHibernateRelatedSagaData
+                                               {
+                                                   NHibernateSagaData = Data,
+                                                   ThreadId = 6
                                                }
                                        };
             }
