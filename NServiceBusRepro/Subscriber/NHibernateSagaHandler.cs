@@ -46,6 +46,7 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
+            Data.RelatedData.Add(new NHibernateRelatedSagaData { ThreadId = 666, NHibernateSagaData = Data});
 
             PerformSagaCompletionCheck();
             //Bus.SendLocal(new CloseSagaCommand {OrderId = message.OrderId});
@@ -73,6 +74,7 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
+            Data.RelatedData.Add(new NHibernateRelatedSagaData { ThreadId = 666, NHibernateSagaData = Data });
 
             PerformSagaCompletionCheck();
             //Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
@@ -108,8 +110,10 @@ namespace Subscriber
             CreateChildSagaDataIfNeeded();
             Data.RelatedData.Remove(Data.RelatedData.First());
             UpdateEveryChildSagaDataRecord();
+            Data.RelatedData.Add(new NHibernateRelatedSagaData { ThreadId = 666, NHibernateSagaData = Data });
 
             PerformSagaCompletionCheck();
+            
             //Bus.SendLocal(new CloseSagaCommand { OrderId = message.OrderId });
             Console.WriteLine(string.Format("[{0}] Finished Processing IThirdEvent for Order ID {1}", threadId, message.OrderId));
         }
