@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdletOne", "CmdletOne\CmdletOne.csproj", "{491D0169-0029-4FB1-B7E0-3D2A81B56391}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdletTwo", "CmdletTwo\CmdletTwo.csproj", "{762867FB-FFC6-4FE6-A83F-89A656CE4893}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{491D0169-0029-4FB1-B7E0-3D2A81B56391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491D0169-0029-4FB1-B7E0-3D2A81B56391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{491D0169-0029-4FB1-B7E0-3D2A81B56391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491D0169-0029-4FB1-B7E0-3D2A81B56391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{762867FB-FFC6-4FE6-A83F-89A656CE4893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{762867FB-FFC6-4FE6-A83F-89A656CE4893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{762867FB-FFC6-4FE6-A83F-89A656CE4893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{762867FB-FFC6-4FE6-A83F-89A656CE4893}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
