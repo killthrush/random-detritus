@@ -1,14 +1,14 @@
 ﻿using System;
-using TestModule2;
+using TestModule;
 
 namespace TestConsole
 {
-    public class Proxy2 : MarshalByRefObject
+    public class Proxy1 : MarshalByRefObject
     {
         public string InvokeCmdlet()
         {
             Proxy p = new Proxy();
-            var t = p.DoWork();
+            string t = p.DoWork();
             return t;
         }
     }

@@ -1,19 +1,17 @@
 using System;
-using System.Reflection;
-using Common;
 using Habitat.Core;
 
-namespace CmdletThree
+namespace TestModule2
 {
-    [Serializable]
-    public class Proxy : MarshalByRefObject, IWorker
+    public class Proxy : MarshalByRefObject
     {
 
         public string DoWork()
         {
+
             DurableMemoryRepository<string> r = new DurableMemoryRepository<string>("foobar", new FileSystemFacade());
-            var e = r.Entities;
-            return "baz";
+            string path = r.Path;
+            return path;
         }
     }
 }

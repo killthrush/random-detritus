@@ -1,9 +1,10 @@
 using System;
+using Common;
 using Habitat.Core;
 
 namespace CmdletFour
 {
-    public class Proxy : MarshalByRefObject
+    public class Proxy : MarshalByRefObject, IWorker
     {
 
         public string DoWork()
