@@ -11,7 +11,7 @@ namespace CmdletFour
         protected override void ProcessRecord()
         {
             string p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            ExecutionSandbox<Proxy> executionSandbox = new ExecutionSandbox<Proxy>(p, 0);
+            ExecutionSandbox<Proxy> executionSandbox = new ExecutionSandbox<Proxy>(p);
             Proxy proxy = executionSandbox.Value;
             string path = proxy.DoWork();
             executionSandbox.Dispose();
