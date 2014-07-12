@@ -10,7 +10,7 @@ namespace CmdletTwo
         {
             DurableMemoryRepository<string> r = new DurableMemoryRepository<string>("foobar", new FileSystemFacade());
             string path = r.Path;
-            WriteObject(string.Format("Path is {0}", path));
+            WriteObject(string.Format("Value is {0}", path));
         }
     }
 }

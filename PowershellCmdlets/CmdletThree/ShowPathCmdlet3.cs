@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Management.Automation;
 using System.Reflection;
 using Common;
@@ -8,14 +9,28 @@ namespace CmdletThree
     [Cmdlet(VerbsCommon.Show, "Path3")]
     public class ShowPathCmdlet3 : Cmdlet
     {
+        private static ExecutionSandbox<Proxy> _executionSandbox;
+        private readonly object _lockObject = new object();
+
         protected override void ProcessRecord()
         {
-            string cmdletExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            ExecutionSandbox<Proxy> executionSandbox = new ExecutionSandbox<Proxy>(cmdletExecutionPath);
-            Proxy proxy = executionSandbox.Value;
+            DateTime start = DateTime.Now;
+
+            lock (_lockObject)
+            {
+                if (_executionSandbox == null)
+                {
+                    string cmdletExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    _executionSandbox = new ExecutionSandbox<Proxy>(cmdletExecutionPath);
+                }
+            }
+
+            Proxy proxy = _executionSandbox.Value;
             string path = proxy.DoWork();
-            executionSandbox.Dispose();
-            WriteObject(string.Format("Path is {0}", path));
+
+            DateTime end = DateTime.Now;
+
+            WriteObject(string.Format("Value is {0}.  Elapsed MS: {1}", path, (end - start).TotalMilliseconds));
         }
     }
 }

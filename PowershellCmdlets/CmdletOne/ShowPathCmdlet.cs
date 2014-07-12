@@ -9,7 +9,7 @@ namespace CmdletOne
         protected override void ProcessRecord()
         {
             DurableMemoryRepository<string> r = new DurableMemoryRepository<string>("foobar", new FileSystemFacade());
-            WriteObject("Path is baz");
+            WriteObject("Value is baz");
         }
     }
 }
