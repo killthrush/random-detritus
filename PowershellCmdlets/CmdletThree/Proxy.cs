@@ -4,10 +4,8 @@ using Habitat.Core;
 
 namespace CmdletThree
 {
-    [Serializable]
-    public class Proxy : MarshalByRefObject, IWorker
+    public class Proxy : MarshalByRefObject, IProxy
     {
-
         public string DoWork()
         {
             DurableMemoryRepository<string> r = new DurableMemoryRepository<string>("foobar", new FileSystemFacade());

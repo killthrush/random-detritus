@@ -3,10 +3,9 @@ using System.IO;
 
 namespace Common
 {
-    [Serializable]
-    public class ExecutionSandbox<T> : IDisposable where T : MarshalByRefObject
+    public class ExecutionSandbox<T> : IDisposable 
+        where T : MarshalByRefObject
     {
-        public static string _probingPath;
         private AppDomain _domain;
 
         public ExecutionSandbox(string probingPath)
