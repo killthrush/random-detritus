@@ -25,14 +25,12 @@ namespace CmdletFour
                 }
             }
 
-            Proxy proxy = _executionSandbox.Value;
+            Proxy proxy = _executionSandbox.ObjectProxy;
             string path = proxy.DoWork();
 
             DateTime end = DateTime.Now;
 
             WriteObject(string.Format("Value is {0}.  Elapsed MS: {1}", path, (end - start).TotalMilliseconds));
         }
-
-
     }
 }

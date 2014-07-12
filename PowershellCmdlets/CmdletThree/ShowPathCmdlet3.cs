@@ -25,7 +25,7 @@ namespace CmdletThree
                 }
             }
 
-            Proxy proxy = _executionSandbox.Value;
+            Proxy proxy = _executionSandbox.ObjectProxy;
             string path = proxy.DoWork();
 
             DateTime end = DateTime.Now;
